@@ -14,8 +14,9 @@
 </head>
 
 <body>
+<?php
 
-  <div class="container">
+ $str = '<div class="container">
     <div class="card text-center">
       <div class="card-header h4">
         Macdonald Order
@@ -44,15 +45,17 @@
               <button class="btn btn-primary">Cancel</button>
             </div>
           </div>
-        </div>
-        
+        </div> 
       </div>
       <div class="card-footer text-muted">
        Status: Pending
       </div>
     </div>
-  </div>
+  </div> ';
 
+  echo $str;
+
+?>
 
   <!-- Option 1: Bootstrap Bundle with Popper -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
