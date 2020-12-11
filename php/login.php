@@ -11,8 +11,10 @@ if (isset($_POST['email']) and isset($_POST['password'])) {
     $result = mysqli_query($connection, $query) or die(mysqli_error($connection));
     $count = mysqli_num_rows($result);
     if ($count==1) {
+        $row = $result->fetch_assoc();
         $_SESSION['email'] = $email;
-        $SESSION['password'] = $password;
+        $_SESSION['password'] = $password;
+        $_SESSION['ID'] = $row['userID'];
     } else {
         $fmsg = "Invalid Login Credentials.";
     }

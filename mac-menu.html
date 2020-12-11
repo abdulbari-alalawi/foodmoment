@@ -72,13 +72,24 @@
     <script>
       $(document).ready(function () {
         $ary = [];
+        $cost = 0;
         $(".addBtn").click(function () {
           $ary.push(parseInt(this.id));
           $.ajax({
             url: "php/getPrice.php?q=" + this.id,
             success: function (data) {
-              $prev = parseInt($("#total").text());
-              $("#total").html($prev + parseInt(data));
+              $cost = parseInt($("#total").text()) + parseInt(data);
+              $("#total").html($cost);
+            },
+          });
+        });
+
+        $("#order").click(function () {
+          $myJSON = JSON.stringify($ary);
+          $.ajax({
+            url: "php/insertOrder.php?JSON=" + $myJSON + "&cost=" + $cost,
+            success: function (data) {
+              window.location.href = "orders.html";
             },
           });
         });
@@ -105,7 +116,7 @@
           <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
             <ul class="navbar-nav ml-auto">
               <li class="nav-item">
-                <a class="nav-link" href="index.html">Home</a>
+                <a class="nav-link" href="index.php">Home</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="restaurants.html">Resturants</a>
@@ -332,7 +343,7 @@
           <div class="col-md-4 pt-2">
             <h3 class="fw-bolder">Total Cost: <span id="total">0</span></h3>
           </div>
-          <button class="col-md-2 btn btn-outline-primary">
+          <button id="order" class="col-md-2 btn btn-outline-primary">
             <span class="h4">Order</span>
           </button>
         </div>

@@ -61,7 +61,7 @@ require_once('php/login.php');
           <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
             <ul class="navbar-nav ml-auto">
               <li class="nav-item">
-                <a class="nav-link" href="index.html">Home</a>
+                <a class="nav-link" href="">Home</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="restaurants.html">Resturants</a>
