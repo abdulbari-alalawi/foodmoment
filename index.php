@@ -1,11 +1,14 @@
+<?php
+require_once('php/login.php');
+?>
 <!DOCTYPE html>
 <html>
   <head>
     <meta charset="utf-8" />
     <title>Food Moments</title>
     <link rel="icon" href="images/favicon.ico" />
-    
-    <!-- Fonts   -->
+
+    <!-- Fonts -->
     <link
       href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,700;0,900;1,400;1,700&display=swap"
       rel="stylesheet"
@@ -68,9 +71,9 @@
               </li>
 
               <li class="nav-item">
-                <?php if (isset($_SESSION['email'])):?>
-                <a class="nav-link" href="php/login.php">Logout</a>
-                <?php else:?>
+                <?php if (isset($_SESSION['email'])) :?>
+                <a class="nav-link" href="php/logout.php">Logout</a>
+                <?php else :?>
                 <a class="nav-link" href="Sign-In.html">Login</a>
                 <?php endif;?>
               </li>

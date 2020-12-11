@@ -18,8 +18,10 @@ if (isset($_POST['email']) and isset($_POST['password'])) {
     }
 }
 
-if (isset($_SESSION['email'])) {
-    echo '<script>window.location.href = "../";</script>';
-} else {
-    echo '<script>window.location.href = "../Sign-in.html"; alert("Wrong info")</script>';
+if (isset($_POST['email'])) {
+    if (isset($_SESSION['email'])) {
+        echo '<script>window.location.href = "../";</script>';
+    } else {
+        echo '<script>window.location.href = "../Sign-In.html"; alert("wrong!")</script>';
+    }
 }
