@@ -1,0 +1,47 @@
+body {
+  font-family: "Montserrat";
+  font-weight: 900;
+  text-align: center;
+}
+
+h3 {
+  font-family: "Montserrat";
+  font-weight: 900;
+  color: #ffffff;
+  line-height: 1.5;
+  font-size: 3em;
+}
+
+.title {
+  background-image: url("../images/burger-img.jpg");
+  height: 31.25em;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  text-align: center;
+  padding: 7% 9%;
+}
+
+.download-button {
+  background-color: orange;
+}
+
+.body-order {
+  background-color: orange;
+  padding: 7% 15%;
+}
+
+.order-button {
+  margin: 4% auto;
+  width: 60%;
+}
+
+nav {
+  text-align: left;
+}
+
+.zoom:hover {
+  -ms-transform: scale(1.02); /* IE 9 */
+  -webkit-transform: scale(1.02); /* Safari 3-8 */
+  transform: scale(1.02); 
+}
