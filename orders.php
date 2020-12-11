@@ -1,3 +1,9 @@
+<?php
+  require_once("php/login.php");
+
+  
+?>
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
