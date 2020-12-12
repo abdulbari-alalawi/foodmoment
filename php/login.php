@@ -15,6 +15,7 @@ if (isset($_POST['email']) and isset($_POST['password'])) {
         $_SESSION['email'] = $email;
         $_SESSION['password'] = $password;
         $_SESSION['ID'] = $row['userID'];
+        $_SESSION['role'] = $row['role'];
     } else {
         $fmsg = "Invalid Login Credentials.";
     }
