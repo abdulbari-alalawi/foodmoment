@@ -78,7 +78,7 @@ require_once("php/login.php");
     <div class="container-fluid">
       <!-- Nav Bar -->
       <nav class="navbar navbar-expand-md navbar-light">
-        <a class="navbar-brand brand-name" href="">FOOD MOMENTS</a>
+        <a class="navbar-brand brand-name" href="./">FOOD MOMENTS</a>
 
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02">
           <span class="navbar-toggler-icon"></span>
@@ -90,10 +90,10 @@ require_once("php/login.php");
               <a class="nav-link" href="index.php">Home</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="restaurants.html">Resturants</a>
+              <a class="nav-link" href="restaurants.php">Resturants</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="orders.html">Orders</a>
+              <a class="nav-link" href="orders.php">Orders</a>
             </li>
 
             <li class="nav-item">
@@ -249,10 +249,9 @@ require_once("php/login.php");
                 <div class="container w-50">
                   <div class="row">
                     <div class="col-md-6">
-                      <button class="btn btn-primary">Accept</button>
                     </div>
                     <div class="col-md-6">
-                      <button class="btn btn-primary">Cancel</button>
+                      <button class="btn btn-primary cancel" id="">Cancel</button>
                     </div>
                   </div>
                 </div>
@@ -294,7 +293,7 @@ require_once("php/login.php");
   </section>
 
   <!-- Footer -->
-  <footer class="fixed-bottom footer border-top bg-light mt-5 ">
+  <footer class="footer border-top bg-light mt-5 ">
     <br />
     <i class="footer-text">Contact us</i>
     <i class="footer-text">Policy</i>

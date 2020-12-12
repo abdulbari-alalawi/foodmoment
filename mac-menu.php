@@ -75,7 +75,7 @@ require_once('php/login.php');
         $.ajax({
           url: "php/insertOrder.php?JSON=" + $myJSON + "&cost=" + $cost,
           success: function(data) {
-            window.location.href = "orders.php";
+            window.location.href = data;
           },
         });
       });

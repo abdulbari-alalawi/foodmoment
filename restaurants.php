@@ -74,7 +74,7 @@ require_once('php/login.php');
     <div class="container-fluid">
       <!-- Nav Bar -->
       <nav class="navbar navbar-expand-md navbar-light">
-        <a class="navbar-brand brand-name" href="">FOOD MOMENTS</a>
+        <a class="navbar-brand brand-name" href="./">FOOD MOMENTS</a>
 
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02">
           <span class="navbar-toggler-icon"></span>
@@ -83,7 +83,7 @@ require_once('php/login.php');
         <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
           <ul class="navbar-nav ml-auto">
             <li class="nav-item">
-              <a class="nav-link" href="index.php">Home</a>
+              <a class="nav-link" href="./">Home</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="restaurants.php">Resturants</a>
