@@ -13,13 +13,10 @@ require_once("php/login.php");
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 
   <!-- Bootstrap CSS -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
-  integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous" />
   <!-- Option 1: jQuery and Bootstrap Bundle (includes Popper) -->
-  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
-  integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"
-  integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
 
   <!-- User-Defined CSS -->
   <style>
@@ -53,8 +50,7 @@ require_once("php/login.php");
   </style>
 
   <!-- Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,700;0,900;1,400;1,700&display=swap"
-  rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,700;0,900;1,400;1,700&display=swap" rel="stylesheet" />
 
   <!-- Font Awesome -->
   <script defer src="https://use.fontawesome.com/releases/v5.0.7/js/all.js"></script>
@@ -67,7 +63,15 @@ require_once("php/login.php");
   <script>
     $(document).ready(function() {
 
-
+      $(".orderBtn").click(function() {
+        $st = this.id;
+        $.ajax({
+          url: "php/changeStatus.php?st=" + this.id + "&orderID=" + this.value,
+          success: function(data) {
+            $("#" + "$st").html = data;
+          },
+        });
+      });
 
     });
   </script>
@@ -97,11 +101,11 @@ require_once("php/login.php");
             </li>
 
             <li class="nav-item">
-            <?php if (isset($_SESSION['email'])) :?>
-              <a class="nav-link" href="php/logout.php">Logout</a>
-            <?php else :?>
-              <a class="nav-link" href="Sign-In.html">Login</a>
-            <?php endif;?>
+              <?php if (isset($_SESSION['email'])) : ?>
+                <a class="nav-link" href="php/logout.php">Logout</a>
+              <?php else : ?>
+                <a class="nav-link" href="Sign-In.html">Login</a>
+              <?php endif; ?>
             </li>
           </ul>
         </div>
@@ -128,19 +132,19 @@ require_once("php/login.php");
               <div class="card-header h4">
                 <?php
                 $sql = "SELECT `restName` FROM `restaurant` WHERE restID = (SELECT restID FROM `order` WHERE orderID = "
-                 . $row['orderID'] . ")";
+                  . $row['orderID'] . ")";
                 $nameRest = mysqli_query($connection, $sql) or die(mysqli_error($connection));
                 $restName = mysqli_fetch_array($nameRest)['restName'];
                 echo $restName;
                 ?> Order</div>
               <div class="card-body">
-                <h5 class="card-title">From 
-                <?php $sql = "SELECT `email` FROM `user` WHERE userID = (SELECT `userID` FROM `order` WHERE orderID = "
-                 . $row['orderID'] . ")";
-                $emailQuery =  mysqli_query($connection, $sql) or die(mysqli_error($connection));
-                $email = mysqli_fetch_array($emailQuery)['email'];
-                echo $email;
-                ?>
+                <h5 class="card-title">From
+                  <?php $sql = "SELECT `email` FROM `user` WHERE userID = (SELECT `userID` FROM `order` WHERE orderID = "
+                    . $row['orderID'] . ")";
+                  $emailQuery =  mysqli_query($connection, $sql) or die(mysqli_error($connection));
+                  $email = mysqli_fetch_array($emailQuery)['email'];
+                  echo $email;
+                  ?>
                 </h5>
                 <div class="card-text container w-50 border">
                   <h5 class="bg-light border-bottom">Description</h5>
@@ -151,46 +155,50 @@ require_once("php/login.php");
                       WHERE orderitems.orderID=" . $row['orderID'];
                     $itemsQuery = mysqli_query($connection, $sql) or die(mysqli_error($connection));
                     while ($item = mysqli_fetch_array($itemsQuery)) {
-                        echo '<li class="list-group-item">' . $item['ItemName'] . ' X' . $item['quantity'];
+                      echo '<li class="list-group-item">' . $item['ItemName'] . ' X' . $item['quantity'];
                     }
                     ?>
                   </ul>
                 </div>
                 <h5 class="card-text"> Total Cost:
-                  <?php echo $row['cost'] . "<span>&#36;</span>";?>
+                  <?php echo $row['cost'] . "<span>&#36;</span>"; ?>
                 </h5>
                 <hr />
                 <div class="container w-50">
                   <div class="row">
                     <div class="col-md-6">
-                      <button class="btn btn-primary">Accept</button>
+                      <button class="btn btn-outline-success orderBtn" id="1" value="<?php
+                                                                                      echo $row['orderID'];
+                                                                                      ?>">Accept</button>
                     </div>
                     <div class="col-md-6">
-                      <button class="btn btn-primary">Cancel</button>
+                      <button class="btn btn-outline-danger orderBtn" id="3" value="<?php
+                                                                                    echo $row['orderID'];
+                                                                                    ?>">Cancel</button>
                     </div>
                   </div>
                 </div>
               </div>
               <div class="card-footer text-muted">
-                Status: 
+                Status:
                 <?php
                 switch ($row['STATUS']) {
-                    case 0:
-                        echo "PENDING";
-                        break;
-                    case 1:
-                        echo "ACCEPTED";
-                        break;
-                    case 2:
-                        echo "Delivered";
-                        break;
-                    case 3:
-                        echo "Cancelled";
-                        break;
+                  case 0:
+                    echo "PENDING";
+                    break;
+                  case 1:
+                    echo "ACCEPTED";
+                    break;
+                  case 2:
+                    echo "Delivered";
+                    break;
+                  case 3:
+                    echo "Cancelled";
+                    break;
 
-                    default:
-                        # code...
-                        break;
+                  default:
+                    # code...
+                    break;
                 }
                 ?>
 
@@ -198,98 +206,100 @@ require_once("php/login.php");
             </div>
           </div>
 
-            <?php
+        <?php
         endwhile;
-    elseif (isset($_SESSION['role']) && $_SESSION['role'] == 1) :?>
+      elseif (isset($_SESSION['role']) && $_SESSION['role'] == 1) : ?>
         <h2 class="display-4 text-white">Orders</h2>
         <hr class="border-light" />
         <div id="orders" class="container">
 
-        <?php
-        $sql = "SELECT * FROM `order` WHERE userID=" . $_SESSION['ID'] . " ORDER BY orderID DESC";
-        $result = mysqli_query($connection, $sql) or die(mysqli_error($connection));
-        while ($row = mysqli_fetch_array($result)) : ?>
-          <div class="container">
-            <div class="card text-center mb-5">
-              <div class="card-header h4">
-              <?php
-                $sql = "SELECT `restName` FROM `restaurant` WHERE restID = (SELECT restID FROM `order` WHERE orderID = "
-                 . $row['orderID'] . ")";
-                $nameRest = mysqli_query($connection, $sql) or die(mysqli_error($connection));
-                $restName = mysqli_fetch_array($nameRest)['restName'];
-                echo $restName;
-                ?> Order</div>
-              <div class="card-body">
-                <h5 class="card-title">From 
-                <?php $sql = "SELECT `email` FROM `user` WHERE userID = (SELECT `userID` FROM `order` WHERE orderID = "
-                 . $row['orderID'] . ")";
-                $emailQuery =  mysqli_query($connection, $sql) or die(mysqli_error($connection));
-                $email = mysqli_fetch_array($emailQuery)['email'];
-                echo $email;
-                ?>
-                </h5>
-                <div class="card-text container w-50 border">
-                  <h5 class="bg-light border-bottom">Description</h5>
-                  <ul class="list-group list-group-flush">
-                    <?php
-                    $sql = "SELECT item.ItemName, orderitems.quantity FROM `item`
+          <?php
+          $sql = "SELECT * FROM `order` WHERE userID=" . $_SESSION['ID'] . " ORDER BY orderID DESC";
+          $result = mysqli_query($connection, $sql) or die(mysqli_error($connection));
+          while ($row = mysqli_fetch_array($result)) : ?>
+            <div class="container">
+              <div class="card text-center mb-5">
+                <div class="card-header h4">
+                  <?php
+                  $sql = "SELECT `restName` FROM `restaurant` WHERE restID = (SELECT restID FROM `order` WHERE orderID = "
+                    . $row['orderID'] . ")";
+                  $nameRest = mysqli_query($connection, $sql) or die(mysqli_error($connection));
+                  $restName = mysqli_fetch_array($nameRest)['restName'];
+                  echo $restName;
+                  ?> Order</div>
+                <div class="card-body">
+                  <h5 class="card-title">From
+                    <?php $sql = "SELECT `email` FROM `user` WHERE userID = (SELECT `userID` FROM `order` WHERE orderID = "
+                      . $row['orderID'] . ")";
+                    $emailQuery =  mysqli_query($connection, $sql) or die(mysqli_error($connection));
+                    $email = mysqli_fetch_array($emailQuery)['email'];
+                    echo $email;
+                    ?>
+                  </h5>
+                  <div class="card-text container w-50 border">
+                    <h5 class="bg-light border-bottom">Description</h5>
+                    <ul class="list-group list-group-flush">
+                      <?php
+                      $sql = "SELECT item.ItemName, orderitems.quantity FROM `item`
                      INNER JOIN `orderitems` on item.itemID = orderitems.itemID
                       WHERE orderitems.orderID=" . $row['orderID'];
-                    $itemsQuery = mysqli_query($connection, $sql) or die(mysqli_error($connection));
-                    while ($item = mysqli_fetch_array($itemsQuery)) {
+                      $itemsQuery = mysqli_query($connection, $sql) or die(mysqli_error($connection));
+                      while ($item = mysqli_fetch_array($itemsQuery)) {
                         echo '<li class="list-group-item">' . $item['ItemName'] . ' X' . $item['quantity'];
-                    }
-                    ?>
-                  </ul>
-                </div>
-                <h5 class="card-text"> Total Cost:
-                  <?php echo $row['cost'] . "<span>&#36;</span>";?>
-                </h5>
-                <hr />
-                <div class="container w-50">
-                  <div class="row">
-                    <div class="col-md-6">
-                    </div>
-                    <div class="col-md-6">
-                      <button class="btn btn-primary cancel" id="">Cancel</button>
+                      }
+                      ?>
+                    </ul>
+                  </div>
+                  <h5 class="card-text"> Total Cost:
+                    <?php echo $row['cost'] . "<span>&#36;</span>"; ?>
+                  </h5>
+                  <hr />
+                  <div class="container w-50">
+                    <div class="row">
+                      <div class="col-md-6">
+                      </div>
+                      <div class="col-md-6">
+                        <button class="btn btn-outline-danger" id="3" value="<?php
+                                                                              echo $row['orderID'];
+                                                                              ?>">Cancel</button>
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
-              <div class="card-footer text-muted">
-                Status: 
-                <?php
-                switch ($row['STATUS']) {
+                <div class="card-footer text-muted">
+                  Status:
+                  <?php
+                  switch ($row['STATUS']) {
                     case 0:
-                        echo "PENDING";
-                        break;
+                      echo "PENDING";
+                      break;
                     case 1:
-                        echo "ACCEPTED";
-                        break;
+                      echo "ACCEPTED";
+                      break;
                     case 2:
-                        echo "Delivered";
-                        break;
+                      echo "Delivered";
+                      break;
                     case 3:
-                        echo "Cancelled";
-                        break;
+                      echo "Cancelled";
+                      break;
 
                     default:
-                        # code...
-                        break;
-                }
-                ?>
+                      # code...
+                      break;
+                  }
+                  ?>
+                </div>
               </div>
             </div>
-          </div>
-        <?php endwhile;
+          <?php endwhile;
 
-        ?>
+          ?>
 
-    <?php else :
+        <?php else :
         echo '<h3>Sign in to review it</h3>';
-    endif;
-    ?>
-      </div>
+      endif;
+        ?>
+        </div>
   </section>
 
   <!-- Footer -->
